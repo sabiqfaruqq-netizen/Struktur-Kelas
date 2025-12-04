@@ -1,0 +1,918 @@
+<!doctype html>
+<html lang="id">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Struktur Kelas</title>
+  <script src="/_sdk/element_sdk.js"></script>
+  <style>
+        body {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100%;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .university-name {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+        }
+
+        .faculty-name {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
+
+        .program-name {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            opacity: 0.8;
+        }
+
+        .year {
+            font-size: 1.1rem;
+            opacity: 0.7;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .class-leader-section {
+            margin-bottom: 50px;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .leader-card {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 15px 30px rgba(240, 147, 251, 0.3);
+            max-width: 400px;
+            margin: 0 auto;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .leader-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .leader-photo {
+            width: 193px;
+            height: 233px;
+            background: #fff;
+            border-radius: 15px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: #f5576c;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .leader-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .leader-name {
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .leader-instagram {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-bottom: 15px;
+        }
+
+        .members-section {
+            margin-bottom: 50px;
+        }
+
+        .members-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .member-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        /* initial state for scroll-in animation: items start slightly lower and hidden */
+        .member-card {
+            --translateY: 20px;
+            transform: translateY(var(--translateY));
+            opacity: 0;
+            transition: transform 420ms cubic-bezier(.22,.9,.26,1), opacity 420ms ease;
+            will-change: transform, opacity;
+        }
+
+        /* when the card is in view, move to its final position and fade in */
+        .member-card.in-view {
+            --translateY: 0px;
+            opacity: 1;
+        }
+
+        /* hover effect should respect current translateY variable */
+        .member-card:hover {
+            transform: translateY(calc(var(--translateY) - 6px));
+        }
+
+        .member-photo {
+            width: 120px;
+            height: 145px;
+            background: #fff;
+            border-radius: 10px;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #764ba2;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .member-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .member-name {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .member-instagram {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .group-photos-section {
+            text-align: center;
+        }
+
+        .main-photo {
+            width: 100%;
+            max-width: 800px;
+            height: 400px;
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            border-radius: 20px;
+            margin: 0 auto 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: #2c3e50;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        .main-photo:hover {
+            transform: scale(1.02);
+        }
+
+        .main-photo::after {
+            content: '🔍';
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+            opacity: 0.7;
+        }
+
+        .fullscreen-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .fullscreen-content {
+            position: relative;
+            max-width: 95%;
+            max-height: 95%;
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 6rem;
+            color: #2c3e50;
+            min-width: 80%;
+            min-height: 70%;
+        }
+
+        .fullscreen-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 3rem;
+            color: white;
+            cursor: pointer;
+            z-index: 2001;
+        }
+
+        .fullscreen-close:hover {
+            color: #ccc;
+        }
+
+        .photo-selector-container {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        .photo-selector {
+            display: flex;
+            gap: 15px;
+            transition: transform 0.3s ease;
+            padding: 10px 0 20px 0;
+        }
+
+        .scrollbar-container {
+            width: 100%;
+            height: 20px;
+            background: rgba(44, 62, 80, 0.1);
+            border-radius: 10px;
+            position: relative;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        .scrollbar-track {
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+            position: relative;
+        }
+
+        .scrollbar-thumb {
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+            cursor: grab;
+            transition: background 0.3s ease;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+        }
+
+        .scrollbar-thumb:active {
+            cursor: grabbing;
+        }
+
+        .photo-thumb {
+            width: 120px;
+            height: 80px;
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            box-shadow: 0 5px 15px rgba(252, 182, 159, 0.3);
+            font-size: 0.8rem;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+
+        .photo-thumb:hover {
+            transform: scale(1.05);
+        }
+
+        .photo-thumb.active {
+            border: 3px solid #f5576c;
+            transform: scale(1.1);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #999;
+        }
+
+        .close-btn:hover {
+            color: #333;
+        }
+
+        .modal-photo {
+            width: 193px;
+            height: 233px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: #6c757d;
+            overflow: hidden;
+        }
+
+        .modal-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .modal-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .modal-instagram {
+            font-size: 1.1rem;
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+
+        .modal-description {
+            font-size: 1rem;
+            color: #555;
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            .university-name {
+                font-size: 1.8rem;
+            }
+            
+            .faculty-name {
+                font-size: 1.2rem;
+            }
+            
+            .members-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+            
+            .photo-selector {
+                gap: 10px;
+            }
+            
+            .photo-thumb {
+                width: 100px;
+                height: 70px;
+                font-size: 0.7rem;
+            }
+        }
+    </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+  <script src="https://cdn.tailwindcss.com" type="text/javascript"></script>
+ </head>
+ <body>
+  <div class="container">
+   <div class="header">
+    <div class="university-name" id="university-name">
+     UNIVERSITAS SINGAPERBANGSA KARAWANG
+    </div>
+    <div class="faculty-name" id="faculty-name">
+     Fakultas Agama Islam
+    </div>
+    <div class="program-name" id="program-name">
+     Program Studi Pendidikan Agama Islam
+    </div>
+    <div class="year" id="year">
+     Angkatan Tahun 2024
+    </div>
+   </div>
+   <div class="content"><!-- Ketua Kelas Section -->
+    <div class="class-leader-section">
+     <h2 class="section-title">Ketua Kelas</h2>
+     <div class="leader-card" onclick="showProfile('leader')">
+      <div class="leader-photo">
+       <img src="Photo Perorang/Sultan Fassyadila Syarif.png" alt="Sultan Fassyadila Syarif">
+      </div>
+      <div class="leader-name">
+       Sultan Fassyadila Syarif
+      </div>
+      <div class="leader-instagram">
+       @ahmad.rizki24
+      </div>
+     </div>
+    </div><!-- Anggota Kelas Section -->
+    <div class="members-section">
+     <h2 class="section-title">Anggota Kelas (36 Mahasiswa)</h2>
+     <div class="members-grid" id="members-grid"><!-- Members will be generated by JavaScript -->
+     </div>
+    </div><!-- Photo Bersama Section -->
+    <div class="group-photos-section">
+     <h2 class="section-title">Foto Bersama</h2>
+     <div class="main-photo" id="main-photo" onclick="openFullscreen()">
+      📸 Foto Bersama Kelas
+     </div>
+     <div class="photo-selector-container">
+      <div class="photo-selector" id="photo-selector"><!-- Photo thumbnails will be generated by JavaScript -->
+      </div>
+      <div class="scrollbar-container" id="scrollbar-container">
+       <div class="scrollbar-track">
+        <div class="scrollbar-thumb" id="scrollbar-thumb"></div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div><!-- Modal for Profile -->
+  <div class="modal" id="profile-modal">
+   <div class="modal-content"><span class="close-btn" onclick="closeModal()">×</span>
+    <div class="modal-photo" id="modal-photo">
+     👤
+    </div>
+    <div class="modal-name" id="modal-name">
+     Nama Mahasiswa
+    </div>
+    <div class="modal-instagram" id="modal-instagram">
+     @instagram
+    </div>
+    <div class="modal-description" id="modal-description">
+     Deskripsi profil mahasiswa...
+    </div>
+   </div>
+  </div><!-- Fullscreen Modal for Photo -->
+  <div class="fullscreen-modal" id="fullscreen-modal"><span class="fullscreen-close" onclick="closeFullscreen()">×</span>
+   <div class="fullscreen-content" id="fullscreen-content">
+    📸 Foto Bersama Kelas
+   </div>
+  </div>
+  <script>
+        // Default configuration
+        const defaultConfig = {
+            university_name: "UNIVERSITAS SINGAPERBANGSA KARAWANG",
+            faculty_name: "Fakultas Agama Islam",
+            program_name: "Program Studi Pendidikan Agama Islam",
+            year: "Angkatan Tahun 2024"
+        };
+
+        // Student data
+        const students = [
+            { name: "Sri Santika Rahmawati", instagram: "@instagram", description: "Mahasiswa aktif dan berprestasi." },
+            { name: "Syariful Alamsyah", instagram: "@instagram", description: "Mahasiswa yang tekun dan berdedikasi." },
+            { name: "Salsabila Julianti", instagram: "@instagram", description: "Mahasiswa yang ramah dan kooperatif." },
+            { name: "Siti Nuraeni", instagram: "@instagram", description: "Mahasiswa yang aktif dalam organisasi." },
+            { name: "Siti Aisyah Gunawan", instagram: "@instagram", description: "Mahasiswa berprestasi di bidang akademik." },
+            { name: "Selpi Dwi Ariani", instagram: "@instagram", description: "Mahasiswa yang kreatif dan inovatif." },
+            { name: "Nurul Aulia", instagram: "@instagram", description: "Mahasiswa yang antusias dalam pembelajaran." },
+            { name: "Raihan Azzam Arrayan", instagram: "@instagram", description: "Mahasiswa dengan dedikasi tinggi." },
+            { name: "Reval Fathurrahman", instagram: "@instagram", description: "Mahasiswa yang konsisten dan fokus." },
+            { name: "Siti Nurlatifah Sukarya", instagram: "@instagram", description: "Mahasiswa yang aktif dan responsif." },
+            { name: "Rahma Nabiilah Nuraniyyah", instagram: "@instagram", description: "Mahasiswa yang disiplin dan teratur." },
+            { name: "Sobur", instagram: "@instagram", description: "Mahasiswa yang bersemangat belajar." },
+            { name: "Riadah Amanda Damayanti", instagram: "@instagram", description: "Mahasiswa yang positif dan mendukung." },
+            { name: "Rysha Awalia Zahra", instagram: "@instagram", description: "Mahasiswa yang talenta dan berbakat." },
+            { name: "Revania Nafi'ah", instagram: "@instagram", description: "Mahasiswa yang rajin dan tekun." },
+            { name: "Riska Silviana Azzahra", instagram: "@instagram", description: "Mahasiswa yang berprestasi gemilang." },
+            { name: "Siti Halimatus Sadiyah", instagram: "@instagram", description: "Mahasiswa yang bertanggung jawab." },
+            { name: "Salwa Maulidina Sundusiah", instagram: "@instagram", description: "Mahasiswa yang peduli dan empati." },
+            { name: "Syamil Sayyafi", instagram: "@instagram", description: "Mahasiswa yang punya visi jelas." },
+            { name: "Sriyanti", instagram: "@instagram", description: "Mahasiswa yang aktif berpartisipasi." },
+            { name: "Salwa Salsabila Putri Sulaiman", instagram: "@instagram", description: "Mahasiswa yang pandai berbicara." },
+            { name: "Rafly Rifqy Rahmansyah", instagram: "@instagram", description: "Mahasiswa yang handal dan terpercaya." },
+            { name: "Satria Najmul Muluk", instagram: "@instagram", description: "Mahasiswa yang cerdas dan analitis." },
+            { name: "Sendi Putra Pamungkas", instagram: "@instagram", description: "Mahasiswa yang komunikatif." },
+            { name: "Sabiq Faruq Al-Fawwaz", instagram: "@instagram", description: "Mahasiswa yang berdisiplin tinggi." },
+            { name: "Shaila Salsabilla", instagram: "@instagram", description: "Mahasiswa yang ceria dan optimis." },
+            { name: "Salwa Salis Himmatul Khoiriyyah Sucarto", instagram: "@instagram", description: "Mahasiswa yang detail dan teliti." },
+            { name: "Ririn Siti Rinjani", instagram: "@instagram", description: "Mahasiswa yang saling mendukung." },
+            { name: "Sarah Laila Agustin", instagram: "@instagram", description: "Mahasiswa yang inspiratif." },
+            { name: "Restu Alfaris", instagram: "@instagram", description: "Mahasiswa yang strategis." },
+            { name: "Reza Shalahuddin Al Ayyubi", instagram: "@instagram", description: "Mahasiswa yang visioner." },
+            { name: "Suci Helen Ramadhani", instagram: "@instagram", description: "Mahasiswa yang penuh semangat." },
+            { name: "Salsabila Mudzakir", instagram: "@instagram", description: "Mahasiswa yang berdedikasi penuh." },
+            { name: "Siti Rahmawati", instagram: "@instagram", description: "Mahasiswa yang konsekuen." },
+            { name: "Putri Alayda Nabilla", instagram: "@instagram", description: "Mahasiswa yang berbakat." },
+            { name: "Siti Fatimah Azzahra", instagram: "@instagram", description: "Mahasiswa yang berprestasi." }
+        ];
+
+        let currentPhotoIndex = 0;
+        let scrollPosition = 0;
+        let isDragging = false;
+        let startX = 0;
+        let startScrollPosition = 0;
+
+        // Generate members
+        function generateMembers() {
+            const membersGrid = document.getElementById('members-grid');
+            membersGrid.innerHTML = '';
+
+            students.forEach((student, index) => {
+                const memberCard = document.createElement('div');
+                memberCard.className = 'member-card';
+                memberCard.onclick = () => showProfile('member', index);
+                
+                let photoHTML = '👤';
+                // Add photo for Syariful Alamsyah (index 1)
+                if (index === 1) {
+                    photoHTML = '<img src="Photo Perorang/Syariful Alamsyah.png" alt="Syariful Alamsyah">';
+                }
+                // Add photo for Raihan Azzam Arrayan (index 7)
+                if (index === 7) {
+                    photoHTML = '<img src="Photo Perorang/Raihan Azzam Arrayan.png" alt="Raihan Azzam Arrayan">';
+                }
+                // Add photo for Sobur (index 11)
+                if (index === 11) {
+                    photoHTML = '<img src="Photo Perorang/Sobur.png" alt="Sobur">';
+                }
+                // Add photo for Syamil Sayyafi (index 18)
+                if (index === 18) {
+                    photoHTML = '<img src="Photo Perorang/Syamil Sayyafi.png" alt="Syamil Sayyafi">';
+                }
+                // Add photo for Sabiq Faruq Al-Fawwaz (index 24)
+                if (index === 24) {
+                    photoHTML = '<img src="Photo Perorang/Sabiq Faruq Al-Fawwaz.png" alt="Sabiq Faruq Al-Fawwaz">';
+                }
+                
+                memberCard.innerHTML = `
+                    <div class="member-photo">${photoHTML}</div>
+                    <div class="member-name">${student.name}</div>
+                    <div class="member-instagram">${student.instagram}</div>
+                `;
+                
+                membersGrid.appendChild(memberCard);
+            });
+        }
+
+        // Generate photo selector
+        function generatePhotoSelector() {
+            const photoSelector = document.getElementById('photo-selector');
+            photoSelector.innerHTML = '';
+
+            for (let i = 1; i <= 15; i++) {
+                const photoThumb = document.createElement('div');
+                photoThumb.className = 'photo-thumb';
+                if (i === 1) photoThumb.classList.add('active');
+                photoThumb.textContent = `Foto ${i}`;
+                photoThumb.onclick = () => selectPhoto(i - 1);
+                photoSelector.appendChild(photoThumb);
+            }
+            
+            // Initialize scrollbar after photos are generated
+            initializeScrollbar();
+        }
+
+        // Initialize scrollbar
+        function initializeScrollbar() {
+            const photoSelector = document.getElementById('photo-selector');
+            const container = document.querySelector('.photo-selector-container');
+            const scrollbarThumb = document.getElementById('scrollbar-thumb');
+            const scrollbarContainer = document.getElementById('scrollbar-container');
+            
+            // Calculate scrollbar thumb width
+            const containerWidth = container.clientWidth;
+            const contentWidth = photoSelector.scrollWidth;
+            const thumbWidth = Math.max((containerWidth / contentWidth) * 100, 10); // minimum 10%
+            
+            scrollbarThumb.style.width = thumbWidth + '%';
+            
+            // Hide scrollbar if content fits
+            if (contentWidth <= containerWidth) {
+                scrollbarContainer.style.display = 'none';
+            } else {
+                scrollbarContainer.style.display = 'block';
+            }
+            
+            // Add event listeners
+            scrollbarThumb.addEventListener('mousedown', startDrag);
+            scrollbarContainer.addEventListener('click', handleScrollbarClick);
+            document.addEventListener('mousemove', drag);
+            document.addEventListener('mouseup', stopDrag);
+        }
+
+        // Start dragging scrollbar
+        function startDrag(e) {
+            isDragging = true;
+            startX = e.clientX;
+            startScrollPosition = scrollPosition;
+            e.preventDefault();
+        }
+
+        // Drag scrollbar
+        function drag(e) {
+            if (!isDragging) return;
+            
+            const scrollbarContainer = document.getElementById('scrollbar-container');
+            const scrollbarThumb = document.getElementById('scrollbar-thumb');
+            const containerWidth = scrollbarContainer.clientWidth;
+            const thumbWidth = scrollbarThumb.clientWidth;
+            
+            const deltaX = e.clientX - startX;
+            const maxThumbPosition = containerWidth - thumbWidth;
+            const scrollRatio = deltaX / maxThumbPosition;
+            
+            const photoSelector = document.getElementById('photo-selector');
+            const container = document.querySelector('.photo-selector-container');
+            const maxScroll = photoSelector.scrollWidth - container.clientWidth;
+            
+            scrollPosition = startScrollPosition + (scrollRatio * maxScroll);
+            scrollPosition = Math.max(0, Math.min(scrollPosition, maxScroll));
+            
+            updateScrollPosition();
+        }
+
+        // Stop dragging
+        function stopDrag() {
+            isDragging = false;
+        }
+
+        // Handle scrollbar click
+        function handleScrollbarClick(e) {
+            if (e.target.classList.contains('scrollbar-thumb')) return;
+            
+            const scrollbarContainer = document.getElementById('scrollbar-container');
+            const rect = scrollbarContainer.getBoundingClientRect();
+            const clickX = e.clientX - rect.left;
+            const containerWidth = scrollbarContainer.clientWidth;
+            const scrollbarThumb = document.getElementById('scrollbar-thumb');
+            const thumbWidth = scrollbarThumb.clientWidth;
+            
+            const clickRatio = (clickX - thumbWidth / 2) / (containerWidth - thumbWidth);
+            
+            const photoSelector = document.getElementById('photo-selector');
+            const container = document.querySelector('.photo-selector-container');
+            const maxScroll = photoSelector.scrollWidth - container.clientWidth;
+            
+            scrollPosition = clickRatio * maxScroll;
+            scrollPosition = Math.max(0, Math.min(scrollPosition, maxScroll));
+            
+            updateScrollPosition();
+        }
+
+        // Update scroll position
+        function updateScrollPosition() {
+            const photoSelector = document.getElementById('photo-selector');
+            const container = document.querySelector('.photo-selector-container');
+            const scrollbarThumb = document.getElementById('scrollbar-thumb');
+            const scrollbarContainer = document.getElementById('scrollbar-container');
+            
+            // Update photo selector position
+            photoSelector.style.transform = `translateX(-${scrollPosition}px)`;
+            
+            // Update scrollbar thumb position
+            const maxScroll = photoSelector.scrollWidth - container.clientWidth;
+            const scrollRatio = scrollPosition / maxScroll;
+            const containerWidth = scrollbarContainer.clientWidth;
+            const thumbWidth = scrollbarThumb.clientWidth;
+            const maxThumbPosition = containerWidth - thumbWidth;
+            
+            scrollbarThumb.style.left = (scrollRatio * maxThumbPosition) + 'px';
+        }
+
+        // Select photo
+        function selectPhoto(index) {
+            currentPhotoIndex = index;
+            
+            // Update active thumbnail
+            document.querySelectorAll('.photo-thumb').forEach((thumb, i) => {
+                thumb.classList.toggle('active', i === index);
+            });
+            
+            // Update main photo
+            const mainPhoto = document.getElementById('main-photo');
+            mainPhoto.textContent = `📸 Foto Bersama ${index + 1}`;
+            
+            // Update fullscreen content
+            const fullscreenContent = document.getElementById('fullscreen-content');
+            fullscreenContent.textContent = `📸 Foto Bersama ${index + 1}`;
+        }
+
+        // Open fullscreen
+        function openFullscreen() {
+            const fullscreenModal = document.getElementById('fullscreen-modal');
+            fullscreenModal.style.display = 'flex';
+        }
+
+        // Close fullscreen
+        function closeFullscreen() {
+            const fullscreenModal = document.getElementById('fullscreen-modal');
+            fullscreenModal.style.display = 'none';
+        }
+
+        // Show profile modal
+        function showProfile(type, index = 0) {
+            const modal = document.getElementById('profile-modal');
+            const modalPhoto = document.getElementById('modal-photo');
+            const modalName = document.getElementById('modal-name');
+            const modalInstagram = document.getElementById('modal-instagram');
+            const modalDescription = document.getElementById('modal-description');
+
+            if (type === 'leader') {
+                modalPhoto.innerHTML = '<img src="Photo Perorang/Sultan Fassyadila Syarif.png" alt="Sultan Fassyadila Syarif">';
+                modalName.textContent = 'Sultan Fassyadila Syarif';
+                modalInstagram.textContent = '@sultan.fassyadila';
+                modalDescription.textContent = 'Ketua kelas yang bertanggung jawab, memiliki jiwa kepemimpinan yang baik, dan selalu siap membantu teman-teman sekelas. Aktif dalam berbagai kegiatan kampus dan memiliki visi untuk memajukan kelas.';
+            } else {
+                const student = students[index];
+                let photoHTML = '👤';
+                // Add photo for Syariful Alamsyah (index 1)
+                if (index === 1) {
+                    photoHTML = '<img src="Photo Perorang/Syariful Alamsyah.png" alt="Syariful Alamsyah">';
+                }
+                // Add photo for Raihan Azzam Arrayan (index 7)
+                if (index === 7) {
+                    photoHTML = '<img src="Photo Perorang/Raihan Azzam Arrayan.png" alt="Raihan Azzam Arrayan">';
+                }
+                // Add photo for Sobur (index 11)
+                if (index === 11) {
+                    photoHTML = '<img src="Photo Perorang/Sobur.png" alt="Sobur">';
+                }
+                // Add photo for Syamil Sayyafi (index 18)
+                if (index === 18) {
+                    photoHTML = '<img src="Photo Perorang/Syamil Sayyafi.png" alt="Syamil Sayyafi">';
+                }
+                // Add photo for Sabiq Faruq Al-Fawwaz (index 24)
+                if (index === 24) {
+                    photoHTML = '<img src="Photo Perorang/Sabiq Faruq Al-Fawwaz.png" alt="Sabiq Faruq Al-Fawwaz">';
+                }
+                modalPhoto.innerHTML = photoHTML;
+                modalName.textContent = student.name;
+                modalInstagram.textContent = student.instagram;
+                modalDescription.textContent = student.description;
+            }
+
+            modal.style.display = 'flex';
+        }
+
+        // Close modal
+        function closeModal() {
+            document.getElementById('profile-modal').style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('profile-modal');
+            const fullscreenModal = document.getElementById('fullscreen-modal');
+            
+            if (event.target === modal) {
+                closeModal();
+            }
+            
+            if (event.target === fullscreenModal) {
+                closeFullscreen();
+            }
+        }
+
+        // Element SDK implementation
+        async function onConfigChange(config) {
+            document.getElementById('university-name').textContent = config.university_name || defaultConfig.university_name;
+            document.getElementById('faculty-name').textContent = config.faculty_name || defaultConfig.faculty_name;
+            document.getElementById('program-name').textContent = config.program_name || defaultConfig.program_name;
+            document.getElementById('year').textContent = config.year || defaultConfig.year;
+        }
+
+        function mapToCapabilities(config) {
+            return {
+                recolorables: [],
+                borderables: [],
+                fontEditable: undefined,
+                fontSizeable: undefined
+            };
+        }
+
+        function mapToEditPanelValues(config) {
+            return new Map([
+                ["university_name", config.university_name || defaultConfig.university_name],
+                ["faculty_name", config.faculty_name || defaultConfig.faculty_name],
+                ["program_name", config.program_name || defaultConfig.program_name],
+                ["year", config.year || defaultConfig.year]
+            ]);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            generateMembers();
+            generatePhotoSelector();
+            initScrollAnimations();
+            
+            if (window.elementSdk) {
+                window.elementSdk.init({
+                    defaultConfig,
+                    onConfigChange,
+                    mapToCapabilities,
+                    mapToEditPanelValues
+                });
+            }
+        });
+
+        // Scroll animations: reveal member cards when they enter the viewport
+        function initScrollAnimations() {
+            const cards = document.querySelectorAll('.member-card');
+            // ensure no per-card stagger so they appear simultaneously
+            // apply a small global delay so the reveal is slightly deferred
+            cards.forEach(c => {
+                c.style.transitionDelay = '500ms';
+            });
+
+            if ('IntersectionObserver' in window) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        // toggle class depending on visibility so animation can repeat
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('in-view');
+                        } else {
+                            entry.target.classList.remove('in-view');
+                        }
+                    });
+                }, { threshold: 0.15 });
+
+                cards.forEach(c => observer.observe(c));
+            } else {
+                // fallback: reveal all
+                cards.forEach(c => c.classList.add('in-view'));
+            }
+        }
+    </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'99e48121f69ab4cd',t:'MTc2MzEwMjI5MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
