@@ -11,23 +11,24 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 20px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #bdc2d6 0%, #c7b4da 100%);
             min-height: 100%;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            background: white;
+            background: rgb(214, 227, 238);
             border-radius: 20px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.1);
             overflow: hidden;
         }
 
         .header {
-            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
-            color: white;
-            padding: 40px;
+            background: url('Tambahan/Background.png') no-repeat center center;
+            background-size: cover;
+            color: rgb(245, 245, 245);
+            padding: 60px;
             text-align: center;
         }
 
@@ -920,25 +921,149 @@
             } else {
                 const student = students[index];
                 let photoHTML = '👤';
+                // Add photo for Sri Santika Rahmawati (index 0)
+                if (index === 0) {
+                    photoHTML = '<img src="Photo Perorang/Sri Santika Rahmawati.png" alt="Sri Santika Rahmawati">';
+                }
                 // Add photo for Syariful Alamsyah (index 1)
                 if (index === 1) {
                     photoHTML = '<img src="Photo Perorang/Syariful Alamsyah.png" alt="Syariful Alamsyah">';
+                }
+                // Add photo for Salsabila Julianti (index 2)
+                if (index === 2) {
+                    photoHTML = '<img src="Photo Perorang/Salsabila Julianti.png" alt="Salsabila Julianti">';
+                }
+                // Add photo For Siti Nuraeni (index 3)
+                if (index === 3) {
+                    photoHTML = '<img src="Photo Perorang/Siti Nuraeni.png" alt="Siti Nuraeni">';
+                }
+                // Add photo for Siti Aisyah Gunawan (index 4)
+                if (index === 4) {
+                    photoHTML = '<img src="Photo Perorang/Siti Aisyah Gunawan.png" alt="Siti Aisyah Gunawan">';
+                }
+                // Add photo for Selpi Dwi Ariani (index 5)
+                if (index === 5) {
+                    photoHTML = '<img src="Photo Perorang/Selpi Dwi Ariani.png" alt="Selpi Dwi Ariani">';
+                }
+                // Add photo for Nurul Aulia (index 6)
+                if (index === 6) {
+                    photoHTML = '<img src="Photo Perorang/Nurul Aulia.png" alt="Nurul Aulia">';
                 }
                 // Add photo for Raihan Azzam Arrayan (index 7)
                 if (index === 7) {
                     photoHTML = '<img src="Photo Perorang/Raihan Azzam Arrayan.png" alt="Raihan Azzam Arrayan">';
                 }
+                // Add photo for Reval Fathurrahman Yakub (index 8)
+                if (index === 8) {
+                    photoHTML = '<img src="Photo Perorang/Reval Fathurrahman Yakub.png" alt="Reval Fathurrahman Yakub">';
+                }
+                // Add photo for Siti Nurlatifah Sukarya (index 9)
+                if (index === 9) {
+                    photoHTML = '<img src="Photo Perorang/Siti Nurlatifah Sukarya.png" alt="Siti Nurlatifah Sukarya">';
+                }
+                // Add photo for Rahma Nabiilah Nuraniyyah (index 10)
+                if (index === 10) {
+                    photoHTML = '<img src="Photo Perorang/Rahma Nabiilah Nuraniyyah.png" alt="Rahma Nabiilah Nuraniyyah">';
+                }
                 // Add photo for Sobur (index 11)
                 if (index === 11) {
                     photoHTML = '<img src="Photo Perorang/Sobur.png" alt="Sobur">';
+                }
+                // Add photo for Riadah Amanda Damayanti (index 12)
+                if (index === 12) {
+                    photoHTML = '<img src="Photo Perorang/Riadah Amanda Damayanti.png" alt="Riadah Amanda Damayanti">';
+                }
+                // Add photo for Rysha Awalia Zahra (index 13)
+                if (index === 13) {
+                    photoHTML = '<img src="Photo Perorang/Rysha Awalia Zahra.png" alt="Rysha Awalia Zahra">';
+                }
+                // Add photo for Revania Nafi'ah (index 14)
+                if (index === 14) {
+                    photoHTML = '<img src="Photo Perorang/Revania Nafi\'ah.png" alt="Revania Nafi\'ah">';
+                }
+                // Add photo for Riska Silviana Azzahra (index 15)
+                if (index === 15) {
+                    photoHTML = '<img src="Photo Perorang/Riska Silviana Azzahra.png" alt="Riska Silviana Azzahra">';
+                }
+                // Add photo for Siti Halimatus Sadiyah (index 16)
+                if (index === 16) {
+                    photoHTML = '<img src="Photo Perorang/Siti Halimatus Sadiyah.png" alt="Siti Halimatus Sadiyah">';
+                }
+                // Add photo for Salwa Maulidina Sundusiah (index 17)
+                if (index === 17) {
+                    photoHTML = '<img src="Photo Perorang/Salwa Maulidina Sundusiah.png" alt="Salwa Maulidina Sundusiah">';
                 }
                 // Add photo for Syamil Sayyafi (index 18)
                 if (index === 18) {
                     photoHTML = '<img src="Photo Perorang/Syamil Sayyafi.png" alt="Syamil Sayyafi">';
                 }
+                // Add photo for Sriyanti (index 19)
+                if (index === 19) {
+                    photoHTML = '<img src="Photo Perorang/Sriyanti.png" alt="Sriyanti">';
+                }
+                // Add photo for Salwa Salsabila Putri Sulaiman (index 20)
+                if (index === 20) {
+                    photoHTML = '<img src="Photo Perorang/Salwa Salsabila Putri Sulaiman.png" alt="Salwa Salsabila Putri Sulaiman">';
+                }
+                // Add photo for Rafly Rifqy Rahmansyah (index 21)
+                if (index === 21) {
+                    photoHTML = '<img src="Photo Perorang/Rafly Rifqy Rahmansyah.png" alt="Rafly Rifqy Rahmansyah">';
+                }
+                // Add photo for Satria Najmul Muluk (index 22)
+                if (index === 22) {
+                    photoHTML = '<img src="Photo Perorang/Satria Najmul Muluk.png" alt="Satria Najmul Muluk">';
+                }
+                // Add photo for Sendi Putra Pamungkas (index 23)
+                if (index === 23) {
+                    photoHTML = '<img src="Photo Perorang/Sendi Putra Pamungkas.png" alt="Sendi Putra Pamungkas">';
+                }
                 // Add photo for Sabiq Faruq Al-Fawwaz (index 24)
                 if (index === 24) {
                     photoHTML = '<img src="Photo Perorang/Sabiq Faruq Al-Fawwaz.png" alt="Sabiq Faruq Al-Fawwaz">';
+                }
+                // Add photo for Shaila Salsabilla (index 25)
+                if (index === 25) {
+                    photoHTML = '<img src="Photo Perorang/Shaila Salsabilla.png" alt="Shaila Salsabilla">';
+                }
+                // Add photo for Salwa Salis Himmatul Khoiriyyah Sucarto (index 26)
+                if (index === 26) {
+                    photoHTML = '<img src="Photo Perorang/Salwa Salis Himmatul Khoiriyyah Sucarto.png" alt="Salwa Salis Himmatul Khoiriyyah Sucarto">';
+                }
+                // Add photo for Ririn Siti Rinjani (index 27)
+                if (index === 27) {
+                    photoHTML = '<img src="Photo Perorang/Ririn Siti Rinjani.png" alt="Ririn Siti Rinjani">';
+                }
+                // Add photo for Sarah Laila Agustin (index 28)
+                if (index === 28) {
+                    photoHTML = '<img src="Photo Perorang/Sarah Laila Agustin.png" alt="Sarah Laila Agustin">';
+                }
+                // Add photo for Restu Alfaris (index 29)
+                if (index === 29) {
+                    photoHTML = '<img src="Photo Perorang/Restu Alfaris.png" alt="Restu Alfaris">';
+                }
+                // Add photo for Reza Shalahuddin Al Ayyubi (index 30)
+                if (index === 30) {
+                    photoHTML = '<img src="Photo Perorang/Reza Shalahuddin Al Ayyubi.png" alt="Reza Shalahuddin Al Ayyubi">';
+                }
+                // Add photo for Suci Helen Ramadhani (index 31)
+                if (index === 31) {
+                    photoHTML = '<img src="Photo Perorang/Suci Helen Ramadhani.png" alt="Suci Helen Ramadhani">';
+                }
+                // Add photo for Salsabila Mudzakir (index 32)
+                if (index === 32) {
+                    photoHTML = '<img src="Photo Perorang/Salsabila Mudzakir.png" alt="Salsabila Mudzakir">';
+                }
+                // Add photo for Siti Rahmawati (index 33)
+                if (index === 33) {
+                    photoHTML = '<img src="Photo Perorang/Siti Rahmawati.png" alt="Siti Rahmawati">';
+                }
+                // Add photo for Putri Alayda Nabilla (index 34)
+                if (index === 34) {
+                    photoHTML = '<img src="Photo Perorang/Putri Alayda Nabilla.png" alt="Putri Alayda Nabilla">';
+                }
+                // Add photo for Siti Fatimah Azzahra (index 35)
+                if (index === 35) {
+                    photoHTML = '<img src="Photo Perorang/Siti Fatimah Azzahra.png" alt="Siti Fatimah Azzahra">';
                 }
                 modalPhoto.innerHTML = photoHTML;
                 modalName.textContent = student.name;
