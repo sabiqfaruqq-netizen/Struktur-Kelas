@@ -578,6 +578,27 @@
             { name: "Siti Fatimah Azzahra", instagram: "@instagram", description: "Mahasiswa yang berprestasi." }
         ];
 
+        // Photo filenames in the "Photo Bersama" folder.
+        // This list was generated from the workspace directory and embedded here so the
+        // client-side code can render thumbnails without trying to read the filesystem at runtime.
+        const groupPhotos = [
+            "Photo Bersama/1.png",
+            "Photo Bersama/2.png",
+            "Photo Bersama/3.png",
+            "Photo Bersama/4.png",
+            "Photo Bersama/5.png",
+            "Photo Bersama/6.png",
+            "Photo Bersama/7.png",
+            "Photo Bersama/8.png",
+            "Photo Bersama/9.png",
+            "Photo Bersama/10.png",
+            "Photo Bersama/11.png",
+            "Photo Bersama/12.png",
+            "Photo Bersama/13.png",
+            "Photo Bersama/14.png",
+            "Photo Bersama/15.png"
+        ];
+
         let currentPhotoIndex = 0;
         let scrollPosition = 0;
         let isDragging = false;
@@ -755,17 +776,32 @@
             const photoSelector = document.getElementById('photo-selector');
             photoSelector.innerHTML = '';
 
-            for (let i = 1; i <= 15; i++) {
+            groupPhotos.forEach((src, i) => {
                 const photoThumb = document.createElement('div');
                 photoThumb.className = 'photo-thumb';
-                if (i === 1) photoThumb.classList.add('active');
-                photoThumb.textContent = `Foto ${i}`;
-                photoThumb.onclick = () => selectPhoto(i - 1);
+                if (i === 0) photoThumb.classList.add('active');
+
+                // create img element inside the thumbnail
+                const img = document.createElement('img');
+                img.src = src;
+                img.alt = `Foto Bersama ${i + 1}`;
+                img.style.width = '100%';
+                img.style.height = '100%';
+                img.style.objectFit = 'cover';
+                img.style.display = 'block';
+                img.style.borderRadius = '8px';
+
+                photoThumb.appendChild(img);
+
+                photoThumb.onclick = () => selectPhoto(i);
                 photoSelector.appendChild(photoThumb);
-            }
-            
+            });
+
             // Initialize scrollbar after photos are generated
             initializeScrollbar();
+
+            // Select first photo if available
+            if (groupPhotos.length > 0) selectPhoto(0);
         }
 
         // Initialize scrollbar
@@ -878,19 +914,26 @@
         // Select photo
         function selectPhoto(index) {
             currentPhotoIndex = index;
-            
+
             // Update active thumbnail
             document.querySelectorAll('.photo-thumb').forEach((thumb, i) => {
                 thumb.classList.toggle('active', i === index);
             });
-            
-            // Update main photo
+
             const mainPhoto = document.getElementById('main-photo');
-            mainPhoto.textContent = `📸 Foto Bersama ${index + 1}`;
-            
-            // Update fullscreen content
             const fullscreenContent = document.getElementById('fullscreen-content');
-            fullscreenContent.textContent = `📸 Foto Bersama ${index + 1}`;
+            const src = groupPhotos[index];
+
+            if (src) {
+                // show image in main-photo
+                mainPhoto.innerHTML = `<img src="${src}" alt="Foto Bersama ${index + 1}" style="width:100%;height:100%;object-fit:cover;border-radius:20px;">`;
+
+                // show image in fullscreen (fit inside)
+                fullscreenContent.innerHTML = `<img src="${src}" alt="Foto Bersama ${index + 1}" style="max-width:100%;max-height:100%;object-fit:contain;border-radius:12px;">`;
+            } else {
+                mainPhoto.textContent = `📸 Foto Bersama ${index + 1}`;
+                fullscreenContent.textContent = `📸 Foto Bersama ${index + 1}`;
+            }
         }
 
         // Open fullscreen
